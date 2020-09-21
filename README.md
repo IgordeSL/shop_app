@@ -22,7 +22,7 @@ You will also need to add the following features/settings to your Firebase proje
         "products": {
             ".indexOn": ["creatorId"]
         }
-    }
+      }
     }
     ```
 * Add email and password authentication
