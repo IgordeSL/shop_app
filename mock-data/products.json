@@ -1,0 +1,34 @@
+{
+	"products": {
+		"-MHltGIwhma1tTn4LAh8": {
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+			"imageURL": "https://cdn.pixabay.com/photo/2016/04/08/10/42/a-neckerchief-1315916_960_720.jpg",
+			"price": 19.99,
+			"title": "Floral scarf"
+		},
+		"-MHltJXyVXFmdexsc5ZF": {
+			"description": "Eu ultrices vitae auctor eu augue ut lectus arcu bibendum. Morbi blandit cursus risus at ultrices. Quisque egestas diam in arcu cursus. Arcu odio ut sem nulla pharetra diam sit amet nisl. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Nec ullamcorper sit amet risus. Duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Quis eleifend quam adipiscing vitae. Sit amet aliquam id diam maecenas ultricies mi. Fringilla ut morbi tincidunt augue interdum velit euismod in. Mauris rhoncus aenean vel elit scelerisque mauris. Condimentum mattis pellentesque id nibh tortor. Lacus laoreet non curabitur gravida arcu. Eget nulla facilisi etiam dignissim diam quis enim lobortis scelerisque. Enim nec dui nunc mattis enim. Fringilla urna porttitor rhoncus dolor purus non.",
+			"imageURL": "https://cdn.pixabay.com/photo/2012/10/09/03/58/cap-60342_960_720.jpg",
+			"price": 14.99,
+			"title": "Blue cap"
+		},
+		"-MHltPf1w6YAh8F3ISIZ": {
+			"description": "A diam sollicitudin tempor id eu nisl nunc mi ipsum. Est lorem ipsum dolor sit amet. Amet nisl purus in mollis. Lacus laoreet non curabitur gravida. Adipiscing elit pellentesque habitant morbi tristique senectus et netus et. Orci sagittis eu volutpat odio facilisis mauris. Eget dolor morbi non arcu risus quis. Imperdiet nulla malesuada pellentesque elit eget. Sagittis purus sit amet volutpat consequat mauris nunc congue. Mus mauris vitae ultricies leo integer malesuada nunc. Sit amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Vel turpis nunc eget lorem dolor sed viverra ipsum. Sem fringilla ut morbi tincidunt augue interdum velit euismod in. Augue ut lectus arcu bibendum at. Diam volutpat commodo sed egestas egestas. Nunc lobortis mattis aliquam faucibus purus in massa tempor nec. Elit at imperdiet dui accumsan sit amet nulla facilisi. Augue neque gravida in fermentum et sollicitudin. Donec ultrices tincidunt arcu non. Praesent semper feugiat nibh sed pulvinar.",
+			"imageURL": "https://cdn.pixabay.com/photo/2017/08/01/11/48/blue-2564660_960_720.jpg",
+			"price": 24.99,
+			"title": "Jean jacket"
+		},
+		"-MHltQwyCd8sg3bahQeK": {
+			"description": "Cursus metus aliquam eleifend mi. Dapibus ultrices in iaculis nunc sed augue lacus viverra vitae. Dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Blandit volutpat maecenas volutpat blandit aliquam etiam erat. Mi quis hendrerit dolor magna. Viverra orci sagittis eu volutpat odio facilisis. Diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Vestibulum sed arcu non odio euismod lacinia at. Sit amet nisl suscipit adipiscing bibendum est ultricies integer quis. Arcu non odio euismod lacinia at quis risus sed vulputate. Sem fringilla ut morbi tincidunt augue interdum velit euismod. Tellus pellentesque eu tincidunt tortor. Lectus urna duis convallis convallis tellus id interdum velit laoreet. Elementum pulvinar etiam non quam lacus suspendisse faucibus. Augue eget arcu dictum varius duis. Sed viverra tellus in hac. Id ornare arcu odio ut sem nulla pharetra diam.",
+			"imageURL": "https://cdn.pixabay.com/photo/2018/01/30/12/08/scarf-3118634_960_720.jpg",
+			"price": 19.99,
+			"title": "Black and white scarf"
+		},
+		"-MHlt_PQbg2v6k8yN51O": {
+			"description": "Orci a scelerisque purus semper eget duis. Gravida cum sociis natoque penatibus et magnis dis parturient. Risus sed vulputate odio ut enim blandit volutpat. Tellus mauris a diam maecenas sed enim. Sem nulla pharetra diam sit amet nisl suscipit. Ultrices neque ornare aenean euismod elementum nisi quis eleifend. Consequat mauris nunc congue nisi vitae. Interdum varius sit amet mattis vulputate. Nulla facilisi cras fermentum odio. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Pulvinar neque laoreet suspendisse interdum consectetur libero. Integer malesuada nunc vel risus commodo viverra.",
+			"imageURL": "https://cdn.pixabay.com/photo/2016/02/19/10/45/fashion-1209388_960_720.jpg",
+			"price": 29.99,
+			"title": "Jeans"
+		}
+	}
+}

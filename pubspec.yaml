@@ -1,0 +1,43 @@
+name: shop_app
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.2.2 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared_preferences: ^0.5.10
+
+  intl: ^0.16.1
+
+  provider: ^4.0.4
+
+  http: ^0.12.1
+
+
+  #cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  # assets:
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+        - asset: fonts/Lato-Bold.ttf
+          weight: 700
+    - family: Raleway
+      fonts:
+        - asset: fonts/Raleway-Regular.ttf
+        - asset: fonts/Raleway-Bold.ttf
+          weight: 700
