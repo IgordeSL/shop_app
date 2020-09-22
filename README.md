@@ -1,7 +1,10 @@
 # ShopApp
 
 Flutter project developed during an online course.
-This project contains
+
+[How to install Flutter](https://flutter.dev/docs/get-started/install) 
+
+This project contains:
 * Navigation by named routes
 * State management using the Provider package
 * Communication with a back-end (Firebase) using HTTP requests
@@ -37,3 +40,5 @@ const enviroment = {
 ```
 * Replace `yourWebAPIKey` with the key that can be found in your Firebase project settings
 * Replace `yourFirebaseUrl` with the URL of your Realtime Database
+
+Flutter 1.20.4
