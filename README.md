@@ -1,14 +1,17 @@
 # ShopApp
 
 Flutter project developed during an online course.
-This project contains
+
+[How to install Flutter](https://flutter.dev/docs/get-started/install) 
+
+This project contains:
 * Navigation by named routes
 * State management using the Provider package
 * Communication with a back-end (Firebase) using HTTP requests
 * Implicit and explicit animations
 
 ## How to run this project
-To execute this project it is necessary to create a project in Firebase, which will be used as a back-end by the application.
+To execute this project, it is necessary to create a project in Firebase, which will be used as a back-end by the application.
 You will also need to add the following features/settings to your Firebase project:
 * Add a Realtime Database
 * In the Realtime Database
@@ -22,7 +25,7 @@ You will also need to add the following features/settings to your Firebase proje
         "products": {
             ".indexOn": ["creatorId"]
         }
-    }
+      }
     }
     ```
 * Add email and password authentication
