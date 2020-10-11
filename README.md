@@ -37,3 +37,5 @@ const enviroment = {
 ```
 * Replace `yourWebAPIKey` with the key that can be found in your Firebase project settings
 * Replace `yourFirebaseUrl` with the URL of your Realtime Database
+
+**Flutter 1.22.1**
