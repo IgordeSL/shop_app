@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/providers/cart.dart';
 import 'package:shop_app/providers/product.dart';
 import 'package:shop_app/providers/products.dart';
 
@@ -12,6 +13,11 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context).settings.arguments as String;
     final productProvider = Provider.of<Products>(
+      context,
+      listen: false,
+    );
+
+    final cart = Provider.of<Cart>(
       context,
       listen: false,
     );
@@ -115,7 +121,26 @@ class ProductDetailPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          cart.addCartItem(product);
+
+          var scaffold = Scaffold.of(context);
+
+          scaffold.removeCurrentSnackBar(
+            reason: SnackBarClosedReason.hide,
+          );
+          scaffold.showSnackBar(
+            SnackBar(
+              content: Text('${product.title} added to cart'),
+              action: SnackBarAction(
+                label: 'Undo',
+                onPressed: () {
+                  cart.removeSingleItem(product.id);
+                },
+              ),
+            ),
+          );
+        },
         label: Text('Add to cart'),
         icon: Icon(Icons.add_shopping_cart),
       ),

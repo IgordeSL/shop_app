@@ -8,7 +8,7 @@ import 'package:shop_app/providers/auth.dart';
 class AppDrawer extends StatelessWidget {
   final String selectedRouteName;
 
-  AppDrawer({@required this.selectedRouteName});
+  const AppDrawer({@required this.selectedRouteName});
 
   @override
   Widget build(BuildContext context) {

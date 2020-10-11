@@ -28,7 +28,7 @@ class _OrderItemState extends State<OrderItem>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 200),
     );
 
     _rotateAnimation = Tween<double>(

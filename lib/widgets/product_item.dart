@@ -9,12 +9,12 @@ import 'package:shop_app/providers/product.dart';
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Product product = Provider.of<Product>(
+    final product = Provider.of<Product>(
       context,
       listen: false,
     );
 
-    Cart cart = Provider.of<Cart>(
+    final cart = Provider.of<Cart>(
       context,
       listen: false,
     );
