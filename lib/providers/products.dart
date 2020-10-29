@@ -41,10 +41,10 @@ class Products with ChangeNotifier {
       final filterText =
           filterByUser ? '&orderBy="creatorId"&equalTo="$_userId"' : '';
       final response = http.get(
-        '${enviroment['firebaseUrl']}/products.json?auth=$_token$filterText',
+        '${environment['firebaseUrl']}/products.json?auth=$_token$filterText',
       );
       final favoritesResponse = http.get(
-        '${enviroment['firebaseUrl']}/userFavorites/$_userId.json?auth=$_token',
+        '${environment['firebaseUrl']}/userFavorites/$_userId.json?auth=$_token',
       );
 
       final responseBody = (await response).body;
@@ -80,7 +80,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     try {
-      final url = '${enviroment['firebaseUrl']}/products.json?auth=$_token';
+      final url = '${environment['firebaseUrl']}/products.json?auth=$_token';
       final response = await http.post(
         url,
         body: json.encode({
@@ -106,7 +106,7 @@ class Products with ChangeNotifier {
   Future<void> updateProduct(Product product) async {
     try {
       final String url =
-          '${enviroment['firebaseUrl']}/products/${product.id}.json?auth=$_token';
+          '${environment['firebaseUrl']}/products/${product.id}.json?auth=$_token';
       await http.patch(url,
           body: json.encode(
             {
@@ -140,7 +140,7 @@ class Products with ChangeNotifier {
 
     try {
       final String url =
-          '${enviroment['firebaseUrl']}/products/$productId.json?auth=$_token';
+          '${environment['firebaseUrl']}/products/$productId.json?auth=$_token';
 
       var response = await http.delete(url);
       if (response.statusCode >= 400) {

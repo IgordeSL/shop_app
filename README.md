@@ -35,7 +35,7 @@ You will also need to add the following features/settings to your Firebase proje
 In the Flutter project it will be necessary to create a file called `env.dart` inside the `lib` folder.
 In this file paste the following code:
 ```dart
-const enviroment = {
+const environment = {
   'firebaseWebAPIKey': 'yourWebAPIKey',
   'firebaseUrl': 'yourFirebaseUrl',
 };

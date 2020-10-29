@@ -28,7 +28,7 @@ class Auth with ChangeNotifier {
     @required String password,
   }) async {
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${enviroment['firebaseWebAPIKey']}';
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment['firebaseWebAPIKey']}';
 
     var response = await http.post(
       url,
@@ -71,7 +71,7 @@ class Auth with ChangeNotifier {
     @required String password,
   }) async {
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${enviroment['firebaseWebAPIKey']}';
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment['firebaseWebAPIKey']}';
 
     var response = await http.post(
       url,

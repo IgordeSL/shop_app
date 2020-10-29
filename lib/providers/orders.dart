@@ -32,7 +32,7 @@ class Orders with ChangeNotifier {
   Future<void> addOrder(
       {@required List<CartItem> items, double totalAmount}) async {
     final String url =
-        '${enviroment['firebaseUrl']}/orders/$_userId.json?auth=$_token';
+        '${environment['firebaseUrl']}/orders/$_userId.json?auth=$_token';
 
     var order = OrderItem(
       id: null,
@@ -73,7 +73,7 @@ class Orders with ChangeNotifier {
   Future<void> fetchOrders() async {
     try {
       final url =
-          '${enviroment['firebaseUrl']}/orders/$_userId.json?auth=$_token';
+          '${environment['firebaseUrl']}/orders/$_userId.json?auth=$_token';
       final response = await http.get(url);
       final data = json.decode(response.body) as Map<String, dynamic>;
       final newOrders = <OrderItem>[];

@@ -42,7 +42,7 @@ class Product with ChangeNotifier {
     notifyListeners();
 
     final String url =
-        '${enviroment['firebaseUrl']}/userFavorites/$userId/$id.json?auth=$token';
+        '${environment['firebaseUrl']}/userFavorites/$userId/$id.json?auth=$token';
 
     try {
       var response = await http.put(url, body: json.encode(value));
