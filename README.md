@@ -1,5 +1,7 @@
 # ShopApp
 
+![App logo](/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
+
 Flutter project developed during an online course.
 
 [How to install Flutter](https://flutter.dev/docs/get-started/install) 
