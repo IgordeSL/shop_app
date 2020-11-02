@@ -35,7 +35,7 @@ class ProductDetailPage extends StatelessWidget {
                 PopupMenuButton(
                   offset: const Offset(0, 48),
                   icon: const Icon(
-                    Icons.more_horiz,
+                    Icons.more_horiz_rounded,
                   ),
                   itemBuilder: (_) => [
                     PopupMenuItem(
@@ -142,7 +142,7 @@ class ProductDetailPage extends StatelessWidget {
           );
         },
         label: Text('Add to cart'),
-        icon: Icon(Icons.add_shopping_cart),
+        icon: Icon(Icons.add_shopping_cart_rounded),
       ),
     );
   }

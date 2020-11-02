@@ -69,7 +69,7 @@ class _OrderItemState extends State<OrderItem>
                   child: child,
                 );
               },
-              child: const Icon(Icons.expand_more),
+              child: const Icon(Icons.expand_more_rounded),
             ),
             onPressed: () {
               setState(() {

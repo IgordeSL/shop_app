@@ -23,7 +23,7 @@ class App extends StatelessWidget {
       accentColor: Colors.deepOrangeAccent,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       fontFamily: 'Lato',
-      textTheme: TextTheme(
+      textTheme: const TextTheme(
         headline1: TextStyle(
           fontFamily: 'Raleway',
           fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class App extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         textTheme: TextTheme(
           headline6: TextStyle(
             fontFamily: 'Raleway',

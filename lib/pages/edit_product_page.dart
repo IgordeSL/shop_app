@@ -24,6 +24,8 @@ class _EditProductPageState extends State<EditProductPage>
   bool _isInit = true;
   bool _isWaiting = false;
   bool _isEnabled = true;
+  bool _isChanged = false;
+  bool _isSaved = false;
 
   Product _edittedProduct = Product.empty();
 
@@ -95,6 +97,8 @@ class _EditProductPageState extends State<EditProductPage>
       ),
       body: Form(
         key: _productFormGlobalKey,
+        onWillPop: _onWillPopForm,
+        onChanged: _onFormChange,
         child: Scrollbar(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(
@@ -127,7 +131,7 @@ class _EditProductPageState extends State<EditProductPage>
                   enabled: _isEnabled,
                   decoration: InputDecoration(
                     labelText: 'Price',
-                    suffixIcon: Icon(Icons.attach_money),
+                    suffixIcon: Icon(Icons.attach_money_rounded),
                   ),
                   initialValue: _edittedProduct.price?.toString(),
                   keyboardType: TextInputType.number,
@@ -181,7 +185,7 @@ class _EditProductPageState extends State<EditProductPage>
                         child: Image.network(
                           _imageURLController.text,
                           errorBuilder: (context, error, stackTrace) => Icon(
-                            Icons.error_outline,
+                            Icons.error_outline_rounded,
                             color: Colors.grey.shade700,
                           ),
                         ),
@@ -214,6 +218,40 @@ class _EditProductPageState extends State<EditProductPage>
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPopForm() async {
+    if ((_isChanged && _isSaved) || !_isChanged) {
+      return true;
+    }
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Discart changes?'),
+          content: const Text('All unsaved data will be lost.'),
+          actions: [
+            FlatButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            FlatButton(
+              child: const Text('Discart'),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _onFormChange() {
+    _isChanged = true;
   }
 
   void _updateImageURL() {
@@ -276,6 +314,8 @@ class _EditProductPageState extends State<EditProductPage>
         } else {
           await productsProvider.updateProduct(_edittedProduct);
         }
+
+        _isSaved = true;
 
         Navigator.of(context).pop(true);
       } catch (error) {

@@ -17,7 +17,7 @@ class CartPage extends StatelessWidget {
         actions: <Widget>[
           PopupMenuButton(
             offset: const Offset(0, 48),
-            icon: const Icon(Icons.more_horiz),
+            icon: const Icon(Icons.more_horiz_rounded),
             itemBuilder: (_) => [
               PopupMenuItem(
                 child: Text('Orders'),
@@ -43,7 +43,7 @@ class CartPage extends StatelessWidget {
                   children: <Widget>[
                     Opacity(
                       opacity: 0.25,
-                      child: Icon(Icons.shopping_cart),
+                      child: Icon(Icons.shopping_cart_rounded),
                     ),
                     SizedBox(height: 8),
                     Text(

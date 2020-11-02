@@ -48,7 +48,7 @@ class ProductItem extends StatelessWidget {
                 icon: Consumer<Product>(
                   builder: (ctx, prod, _) => prod.favorite
                       ? Icon(
-                          Icons.favorite,
+                          Icons.favorite_rounded,
                           color: Theme.of(ctx).accentColor,
                         )
                       : buildFavoriteTwoToneIcon(ctx),
@@ -86,7 +86,7 @@ class ProductItem extends StatelessWidget {
               ),
               subtitle: Text('\$ ${product.price.toStringAsFixed(2)}'),
               trailing: IconButton(
-                icon: Icon(Icons.add_shopping_cart),
+                icon: Icon(Icons.add_shopping_cart_rounded),
                 tooltip: 'Add to cart',
                 onPressed: () {
                   cart.addCartItem(product);
@@ -155,7 +155,7 @@ class ProductItem extends StatelessWidget {
                     print('[ProductItem Widget] Network Image error: $error');
                     return Center(
                       child: Icon(
-                        Icons.error_outline,
+                        Icons.error_outline_rounded,
                         size: 48,
                         color: Theme.of(ctx).dividerColor,
                       ),
@@ -174,11 +174,11 @@ class ProductItem extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Icon(
-          Icons.favorite,
+          Icons.favorite_rounded,
           color: Theme.of(context).accentColor.withOpacity(0.2),
         ),
         Icon(
-          Icons.favorite_border,
+          Icons.favorite_border_rounded,
           color: Theme.of(context).accentColor.withOpacity(0.2),
         ),
       ],

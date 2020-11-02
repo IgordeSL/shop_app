@@ -20,13 +20,13 @@ class AppDrawer extends StatelessWidget {
             _buildListTile(
               context: context,
               title: 'Products',
-              icon: Icons.shopping_basket,
+              icon: Icons.shopping_basket_rounded,
               routeName: ProductOverviewPage.routeName,
             ),
             _buildListTile(
               context: context,
               title: 'Orders',
-              icon: Icons.local_shipping,
+              icon: Icons.local_shipping_rounded,
               routeName: OrdersPage.routeName,
             ),
             Divider(
@@ -36,12 +36,12 @@ class AppDrawer extends StatelessWidget {
             _buildListTile(
               context: context,
               title: 'My products',
-              icon: Icons.person,
+              icon: Icons.person_rounded,
               routeName: UserProductsPage.routeName,
             ),
             Expanded(child: Container()),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
+              leading: Icon(Icons.exit_to_app_rounded),
               title: Text('Logout'),
               onTap: () {
                 Navigator.of(context).pop();
@@ -50,7 +50,7 @@ class AppDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.info),
+              leading: Icon(Icons.info_rounded),
               title: Text('About'),
               onTap: () {
                 showAboutDialog(

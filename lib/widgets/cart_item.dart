@@ -55,7 +55,7 @@ class CartItem extends StatelessWidget {
     return Container(
       color: Theme.of(context).errorColor,
       child: Icon(
-        Icons.remove_shopping_cart,
+        Icons.remove_shopping_cart_rounded,
         color: (Theme.of(context).errorColor.computeLuminance() > 0.5)
             ? Colors.black
             : Colors.white,

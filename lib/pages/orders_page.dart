@@ -48,7 +48,7 @@ class OrdersPage extends StatelessWidget {
                   ),
                   FlatButton.icon(
                     onPressed: ordersProvider.fetchOrders,
-                    icon: const Icon(Icons.refresh),
+                    icon: const Icon(Icons.refresh_rounded),
                     label: Text('TRY AGAIN'),
                   ),
                 ],

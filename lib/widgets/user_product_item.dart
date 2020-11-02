@@ -38,7 +38,7 @@ class UserProductItem extends StatelessWidget {
             value: UserProductActions.edit,
             child: Row(
               children: <Widget>[
-                Icon(Icons.edit),
+                Icon(Icons.edit_rounded),
                 SizedBox(width: 8),
                 Text('Edit'),
               ],
@@ -48,7 +48,7 @@ class UserProductItem extends StatelessWidget {
             value: UserProductActions.delete,
             child: Row(
               children: <Widget>[
-                Icon(Icons.delete),
+                Icon(Icons.delete_rounded),
                 SizedBox(width: 8),
                 Text('Delete'),
               ],

@@ -43,7 +43,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
                   value: '${cart.itemAmount}',
                 );
               },
-              child: Icon(Icons.shopping_cart),
+              child: Icon(Icons.shopping_cart_rounded),
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(CartPage.routeName);
@@ -51,7 +51,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
           ),
           PopupMenuButton(
             offset: const Offset(0, 48),
-            icon: const Icon(Icons.more_horiz),
+            icon: const Icon(Icons.more_horiz_rounded),
             itemBuilder: (_) => <PopupMenuEntry<SelectionOptions>>[
               PopupMenuItem(
                 child: Text('Show only favorites'),
@@ -119,7 +119,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
             ),
             OutlineButton.icon(
               onPressed: productProvider.fetchProducts,
-              icon: Icon(Icons.refresh),
+              icon: Icon(Icons.refresh_rounded),
               label: Text('TRY AGAIN'),
             ),
           ],
