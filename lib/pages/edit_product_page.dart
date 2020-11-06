@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/helpers/image_network_helper.dart';
 import 'package:shop_app/providers/product.dart';
 import 'package:shop_app/providers/products.dart';
 
@@ -184,6 +185,7 @@ class _EditProductPageState extends State<EditProductPage>
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
                           _imageURLController.text,
+                          loadingBuilder: imageNetworkLoadingBuilder,
                           errorBuilder: (context, error, stackTrace) => Icon(
                             Icons.error_outline_rounded,
                             color: Colors.grey.shade700,

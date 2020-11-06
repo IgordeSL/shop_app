@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/helpers/custom_route.dart';
+import 'package:shop_app/helpers/image_network_helper.dart';
 import 'package:shop_app/pages/product_detail_page.dart';
 import 'package:shop_app/providers/auth.dart';
 import 'package:shop_app/providers/cart.dart';
@@ -122,35 +123,7 @@ class ProductItem extends StatelessWidget {
                 child: Image.network(
                   product.imageURL,
                   fit: BoxFit.cover,
-                  loadingBuilder: (ctx, child, progress) {
-                    return AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 200),
-                      layoutBuilder: (currentChild, previousChildren) {
-                        return Stack(
-                          fit: StackFit.expand,
-                          children: <Widget>[
-                            ...previousChildren,
-                            if (currentChild != null) currentChild,
-                          ],
-                          alignment: Alignment.center,
-                        );
-                      },
-                      child: (progress == null &&
-                              ((child as Semantics)?.child as RawImage)
-                                      ?.image !=
-                                  null
-                          ? child
-                          : Center(
-                              child: CircularProgressIndicator(
-                                backgroundColor: Theme.of(ctx).dividerColor,
-                                value: progress?.expectedTotalBytes != null
-                                    ? progress.cumulativeBytesLoaded /
-                                        progress.expectedTotalBytes
-                                    : null,
-                              ),
-                            )),
-                    );
-                  },
+                  loadingBuilder: imageNetworkLoadingBuilder,
                   errorBuilder: (ctx, error, stackTrace) {
                     print('[ProductItem Widget] Network Image error: $error');
                     return Center(

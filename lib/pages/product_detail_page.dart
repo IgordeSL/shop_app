@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/helpers/image_network_helper.dart';
 import 'package:shop_app/providers/cart.dart';
 import 'package:shop_app/providers/product.dart';
 import 'package:shop_app/providers/products.dart';
@@ -155,34 +156,7 @@ class ProductDetailPage extends StatelessWidget {
           child: Image.network(
             product.imageURL,
             fit: BoxFit.cover,
-            loadingBuilder: (ctx, child, progress) {
-              return AnimatedSwitcher(
-                layoutBuilder: (currentChild, previousChildren) {
-                  return Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      ...previousChildren,
-                      if (currentChild != null) currentChild,
-                    ],
-                    alignment: Alignment.center,
-                  );
-                },
-                duration: const Duration(
-                  milliseconds: 200,
-                ),
-                child: progress == null &&
-                        ((child as Semantics)?.child as RawImage)?.image != null
-                    ? child
-                    : Center(
-                        child: CircularProgressIndicator(
-                          value: progress?.expectedTotalBytes != null
-                              ? progress.cumulativeBytesLoaded /
-                                  progress.expectedTotalBytes
-                              : null,
-                        ),
-                      ),
-              );
-            },
+            loadingBuilder: imageNetworkLoadingBuilder,
           ),
         ),
         Container(
