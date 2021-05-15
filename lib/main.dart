@@ -174,7 +174,7 @@ class App extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'ShopApp',
           theme: appThemeData,
           home: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
