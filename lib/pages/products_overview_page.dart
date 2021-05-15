@@ -39,7 +39,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
             icon: Consumer<Cart>(
               builder: (_, cart, child) {
                 return Badge(
-                  child: child,
+                  child: child!,
                   value: '${cart.itemAmount}',
                 );
               },
@@ -117,7 +117,7 @@ class _ProductOverviewPageState extends State<ProductOverviewPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            OutlineButton.icon(
+            OutlinedButton.icon(
               onPressed: productProvider.fetchProducts,
               icon: Icon(Icons.refresh_rounded),
               label: Text('TRY AGAIN'),

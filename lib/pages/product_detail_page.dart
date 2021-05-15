@@ -12,7 +12,7 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context).settings.arguments as String;
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
     final productProvider = Provider.of<Products>(
       context,
       listen: false,
@@ -68,7 +68,7 @@ class ProductDetailPage extends StatelessWidget {
                         Flexible(
                           fit: FlexFit.tight,
                           child: Text(
-                            product.title,
+                            product.title ?? '',
                             maxLines: 2,
                             style: Theme.of(context).textTheme.headline4,
                           ),
@@ -81,12 +81,13 @@ class ProductDetailPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            '\$ ${product.price.toStringAsFixed(2)}',
-                            style:
-                                (Theme.of(context).primaryTextTheme.subtitle1)
-                                    .copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            '\$ ${product.price?.toStringAsFixed(2)}',
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .subtitle1!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ),
                       ],
@@ -108,7 +109,7 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                         SizedBox(height: 12),
                         Text(
-                          product.description,
+                          product.description ?? '',
                           softWrap: true,
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
@@ -125,7 +126,7 @@ class ProductDetailPage extends StatelessWidget {
         onPressed: () {
           cart.addCartItem(product);
 
-          var scaffold = Scaffold.of(context);
+          var scaffold = ScaffoldMessenger.of(context);
 
           scaffold.removeCurrentSnackBar(
             reason: SnackBarClosedReason.hide,
@@ -136,7 +137,7 @@ class ProductDetailPage extends StatelessWidget {
               action: SnackBarAction(
                 label: 'Undo',
                 onPressed: () {
-                  cart.removeSingleItem(product.id);
+                  cart.removeSingleItem(product.id!);
                 },
               ),
             ),
@@ -154,7 +155,7 @@ class ProductDetailPage extends StatelessWidget {
         Hero(
           tag: 'image${product.id}',
           child: Image.network(
-            product.imageURL,
+            product.imageURL ?? '',
             fit: BoxFit.cover,
             loadingBuilder: imageNetworkLoadingBuilder,
           ),

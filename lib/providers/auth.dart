@@ -9,13 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/env.dart';
 
 class Auth with ChangeNotifier {
-  String _token;
-  DateTime _expiresIn;
-  String _userId;
-  Timer _authTimer;
+  String? _token;
+  DateTime? _expiresIn;
+  String? _userId;
+  Timer? _authTimer;
 
-  String get token => _token;
-  String get userId => _userId;
+  String? get token => _token;
+  String? get userId => _userId;
 
   bool get isAuthenticated =>
       _userId != null &&
@@ -24,14 +24,15 @@ class Auth with ChangeNotifier {
       (_expiresIn?.isAfter(DateTime.now()) ?? false);
 
   Future<void> signUp({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
-    final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment['firebaseWebAPIKey']}';
+    final uri = Uri.parse(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment['firebaseWebAPIKey']}',
+    );
 
     var response = await http.post(
-      url,
+      uri,
       body: json.encode(
         {
           'email': email,
@@ -41,13 +42,13 @@ class Auth with ChangeNotifier {
       ),
     );
 
-    var responseData = json.decode(response?.body);
+    var responseData = json.decode(response.body);
 
     if (response.statusCode >= 400 ||
         ((responseData['error'] ?? const {})['code'] ?? 0) >= 400) {
       throw HttpException(
         responseData['error']['message'] ?? response.reasonPhrase,
-        uri: response.request.url,
+        uri: response.request?.url,
       );
     }
 
@@ -67,14 +68,15 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
-    final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment['firebaseWebAPIKey']}';
+    final uri = Uri.parse(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment['firebaseWebAPIKey']}',
+    );
 
     var response = await http.post(
-      url,
+      uri,
       body: json.encode(
         {
           'email': email,
@@ -84,13 +86,13 @@ class Auth with ChangeNotifier {
       ),
     );
 
-    var responseData = json.decode(response?.body);
+    var responseData = json.decode(response.body);
 
     if (response.statusCode >= 400 ||
         ((responseData['error'] ?? const {})['code'] ?? 0) >= 400) {
       throw HttpException(
         responseData['error']['message'] ?? response.reasonPhrase,
-        uri: response.request.url,
+        uri: response.request?.url,
       );
     }
 
@@ -114,26 +116,24 @@ class Auth with ChangeNotifier {
     _userId = null;
     _expiresIn = null;
 
-    if (_authTimer != null) {
-      _authTimer.cancel();
-      _authTimer = null;
-    }
+    _authTimer?.cancel();
+    _authTimer = null;
 
     notifyListeners();
     _deleteLoginData();
   }
 
   void _autoLogout() {
-    if (_authTimer != null) {
-      _authTimer.cancel();
-    }
+    _authTimer?.cancel();
 
-    _authTimer = Timer(
-      Duration(
-        seconds: _expiresIn.difference(DateTime.now()).inSeconds,
-      ),
-      logout,
-    );
+    if (_expiresIn != null) {
+      _authTimer = Timer(
+        Duration(
+          seconds: _expiresIn!.difference(DateTime.now()).inSeconds,
+        ),
+        logout,
+      );
+    }
   }
 
   Future<void> _saveLoginData() async {
@@ -142,7 +142,7 @@ class Auth with ChangeNotifier {
       'loginData',
       json.encode({
         'token': _token,
-        'expiresIn': _expiresIn.toIso8601String(),
+        'expiresIn': _expiresIn?.toIso8601String(),
         'userId': _userId,
       }),
     );
@@ -155,13 +155,12 @@ class Auth with ChangeNotifier {
       return false;
     }
 
-    final loginData =
-        json.decode(preferences.getString('loginData')) as Map<String, dynamic>;
-
-    if (loginData == null) {
+    var loginDataString = preferences.getString('loginData');
+    if (loginDataString == null || loginDataString.isEmpty) {
       return false;
     }
 
+    final loginData = json.decode(loginDataString) as Map<String, dynamic>;
     final expiryDate = DateTime.parse(loginData['expiresIn']);
 
     if (expiryDate.isBefore(DateTime.now())) {

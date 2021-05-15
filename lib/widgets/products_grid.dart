@@ -7,7 +7,7 @@ class ProductsGrid extends StatelessWidget {
   final favoritesOnly;
 
   const ProductsGrid({
-    Key key,
+    Key? key,
     this.favoritesOnly = false,
   }) : super(key: key);
 

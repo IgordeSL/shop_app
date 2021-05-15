@@ -29,7 +29,7 @@ class AuthPage extends StatelessWidget {
                       'ShopApp',
                       style: Theme.of(context)
                           .textTheme
-                          .headline4
+                          .headline4!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 32),
@@ -47,7 +47,7 @@ class AuthPage extends StatelessWidget {
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -67,9 +67,9 @@ class _AuthFormState extends State<AuthForm>
   bool _isLoading = false;
   final _passwordController = TextEditingController();
 
-  AnimationController _animationController;
-  Animation<double> _heightAnimation;
-  Animation<double> _opacityAnimation;
+  late AnimationController _animationController;
+  late Animation<double> _heightAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -99,11 +99,13 @@ class _AuthFormState extends State<AuthForm>
   }
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
+    final formState = _formKey.currentState;
+
+    if (formState == null || !formState.validate()) {
       return;
     }
 
-    _formKey.currentState.save();
+    formState.save();
 
     setState(() {
       _isLoading = true;
@@ -112,13 +114,13 @@ class _AuthFormState extends State<AuthForm>
     try {
       if (_authMode == AuthMode.Login) {
         await Provider.of<Auth>(context, listen: false).login(
-          email: _authData['email'],
-          password: _authData['password'],
+          email: _authData['email']!,
+          password: _authData['password']!,
         );
       } else {
         await Provider.of<Auth>(context, listen: false).signUp(
-          email: _authData['email'],
-          password: _authData['password'],
+          email: _authData['email']!,
+          password: _authData['password']!,
         );
       }
     } on HttpException catch (error) {
@@ -180,8 +182,8 @@ class _AuthFormState extends State<AuthForm>
   }
 
   _showErrorAlert({
-    String title,
-    @required String content,
+    String? title,
+    required String content,
   }) {
     showDialog(
       context: context,
@@ -190,7 +192,7 @@ class _AuthFormState extends State<AuthForm>
           title: Text(title ?? 'Error'),
           content: Text(content),
           actions: [
-            FlatButton(
+            TextButton(
               child: Text("OK"),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -227,14 +229,14 @@ class _AuthFormState extends State<AuthForm>
             decoration: InputDecoration(labelText: 'Email'),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
-              if (value.isEmpty || !value.contains('@')) {
+              if (value == null || value.isEmpty || !value.contains('@')) {
                 return 'Invalid email!';
               } else {
                 return null;
               }
             },
             onSaved: (value) {
-              _authData['email'] = value.trim();
+              _authData['email'] = value?.trim() ?? '';
             },
           ),
           const SizedBox(height: 12),
@@ -243,14 +245,14 @@ class _AuthFormState extends State<AuthForm>
             obscureText: true,
             controller: _passwordController,
             validator: (value) {
-              if (value.isEmpty || value.length < 5) {
+              if (value == null || value.isEmpty || value.length < 5) {
                 return 'Password is too short';
               } else {
                 return null;
               }
             },
             onSaved: (value) {
-              _authData['password'] = value;
+              _authData['password'] = value ?? '';
             },
           ),
           SizeTransition(
@@ -288,7 +290,7 @@ class _AuthFormState extends State<AuthForm>
                     children: <Widget>[
                       Flexible(
                         fit: FlexFit.tight,
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 100),
                             switchInCurve: const Interval(0.5, 1),
@@ -299,13 +301,12 @@ class _AuthFormState extends State<AuthForm>
                             ),
                           ),
                           onPressed: _submit,
-                          textColor: Colors.white,
                         ),
                       ),
                       const SizedBox(width: 12),
                       Flexible(
                         fit: FlexFit.tight,
-                        child: FlatButton(
+                        child: TextButton(
                           child: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 100),
                             switchInCurve: const Interval(0.5, 1),
@@ -316,7 +317,6 @@ class _AuthFormState extends State<AuthForm>
                             ),
                           ),
                           onPressed: _switchAuthMode,
-                          textColor: Theme.of(context).primaryColor,
                         ),
                       ),
                     ],

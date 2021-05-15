@@ -8,9 +8,9 @@ enum UserProductActions { edit, delete }
 
 class UserProductItem extends StatelessWidget {
   const UserProductItem({
-    Key key,
-    @required this.product,
-    @required this.productBackgroundColor,
+    Key? key,
+    required this.product,
+    required this.productBackgroundColor,
   }) : super(key: key);
 
   final Product product;
@@ -18,17 +18,17 @@ class UserProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scaffold = Scaffold.of(context);
+    final scaffold = ScaffoldMessenger.of(context);
 
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: productBackgroundColor,
-        backgroundImage: NetworkImage(product.imageURL),
+        backgroundImage: NetworkImage(product.imageURL ?? ''),
         onBackgroundImageError: (exception, stackTrace) {},
       ),
-      title: Text(product.title),
+      title: Text(product.title ?? ''),
       subtitle: Text(
-        product.description,
+        product.description ?? '',
         maxLines: 1,
       ),
       trailing: PopupMenuButton(
@@ -101,16 +101,16 @@ class UserProductItem extends StatelessWidget {
         title: Text('Delete your product?'),
         content: Text('${product.title} will be deleted.'),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
             child: Text('Cancel'),
           ),
-          FlatButton(
+          TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
             child: Text('Delete'),
           )
         ],
       ),
-    );
+    ).then((value) => value ?? false);
   }
 }

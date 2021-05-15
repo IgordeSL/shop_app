@@ -21,8 +21,8 @@ class _OrderItemState extends State<OrderItem>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
 
-  AnimationController _animationController;
-  Animation<double> _rotateAnimation;
+  late AnimationController _animationController;
+  late Animation<double> _rotateAnimation;
 
   @override
   void initState() {

@@ -11,10 +11,10 @@ class CartItem {
   int amount;
 
   CartItem({
-    @required this.id,
-    @required this.productId,
-    @required this.title,
-    @required this.price,
+    required this.id,
+    required this.productId,
+    required this.title,
+    required this.price,
     this.amount = 1,
   });
 }
@@ -47,20 +47,19 @@ class Cart with ChangeNotifier {
   }
 
   void addCartItem(Product product) {
-    CartItem cartItem = _items.firstWhere(
-      (item) => item.productId == product.id,
-      orElse: () => null,
-    );
+    try {
+      CartItem cartItem = _items.firstWhere(
+        (item) => item.productId == product.id,
+      );
 
-    if (cartItem != null) {
       cartItem.amount++;
-    } else {
+    } catch (_) {
       _items.add(
         CartItem(
           id: DateTime.now().toString(),
-          productId: product.id,
-          title: product.title,
-          price: product.price,
+          productId: product.id ?? '',
+          title: product.title ?? '',
+          price: product.price ?? 0,
           amount: 1,
         ),
       );
@@ -69,18 +68,19 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  removeSingleItem(String productId) {
-    CartItem cartItem = _items.firstWhere(
-      (item) => item.productId == productId,
-      orElse: () => null,
-    );
+  removeSingleItem(String? productId) {
+    try {
+      CartItem cartItem = _items.firstWhere(
+        (item) => item.productId == productId,
+      );
 
-    if (cartItem == null) return;
-
-    if (cartItem.amount > 1) {
-      cartItem.amount--;
-    } else {
-      _items.removeWhere((item) => item.id == cartItem.id);
+      if (cartItem.amount > 1) {
+        cartItem.amount--;
+      } else {
+        _items.removeWhere((item) => item.id == cartItem.id);
+      }
+    } catch (_) {
+      return;
     }
 
     notifyListeners();

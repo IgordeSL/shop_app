@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
@@ -25,9 +26,9 @@ class Products with ChangeNotifier {
   }
 
   Products({
-    @required String token,
-    @required String userId,
-    List<Product> items,
+    required String token,
+    required String userId,
+    List<Product>? items,
   })  : _token = token,
         _userId = userId,
         _items = items ?? <Product>[];
@@ -40,20 +41,24 @@ class Products with ChangeNotifier {
     try {
       final filterText =
           filterByUser ? '&orderBy="creatorId"&equalTo="$_userId"' : '';
-      final response = http.get(
+
+      final productsUri = Uri.parse(
         '${environment['firebaseUrl']}/products.json?auth=$_token$filterText',
       );
-      final favoritesResponse = http.get(
+      final response = http.get(productsUri);
+
+      final favoritesUri = Uri.parse(
         '${environment['firebaseUrl']}/userFavorites/$_userId.json?auth=$_token',
       );
+      final favoritesResponse = http.get(favoritesUri);
 
       final responseBody = (await response).body;
-      final data = json.decode(responseBody) as Map<String, dynamic>;
+      final data = json.decode(responseBody) as Map<String, dynamic>?;
 
       final favoriteBody = (await favoritesResponse).body;
-      final favoritesData = json.decode(favoriteBody) as Map<String, dynamic>;
+      final favoritesData = json.decode(favoriteBody) as Map<String, dynamic>?;
 
-      final List<Product> newItems = List<Product>();
+      final List<Product> newItems = [];
 
       data?.forEach((key, value) {
         newItems.add(
@@ -65,7 +70,7 @@ class Products with ChangeNotifier {
                 ? value['price']
                 : double.parse(value['price']),
             imageURL: value['imageURL'],
-            favorite: (favoritesData ?? {})[key] ?? false,
+            favorite: favoritesData?[key] ?? false,
           ),
         );
       });
@@ -80,9 +85,11 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     try {
-      final url = '${environment['firebaseUrl']}/products.json?auth=$_token';
+      final uri = Uri.parse(
+        '${environment['firebaseUrl']}/products.json?auth=$_token',
+      );
       final response = await http.post(
-        url,
+        uri,
         body: json.encode({
           'title': product.title,
           'description': product.description,
@@ -105,9 +112,10 @@ class Products with ChangeNotifier {
 
   Future<void> updateProduct(Product product) async {
     try {
-      final String url =
-          '${environment['firebaseUrl']}/products/${product.id}.json?auth=$_token';
-      await http.patch(url,
+      final uri = Uri.parse(
+        '${environment['firebaseUrl']}/products/${product.id}.json?auth=$_token',
+      );
+      await http.patch(uri,
           body: json.encode(
             {
               'title': product.title,
@@ -130,27 +138,30 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> deleteProduct(String productId) async {
-    final removedProductIndex =
-        _items.indexWhere((product) => product.id == productId);
-    var removedProduct = _items[removedProductIndex];
+  Future<void> deleteProduct(String? productId) async {
+    final removedProductIndex = _items.indexWhere(
+      (product) => product.id == productId,
+    );
+
+    if (removedProductIndex == -1) return;
+
+    final removedProduct = _items[removedProductIndex];
     _items.removeAt(removedProductIndex);
 
     notifyListeners();
 
     try {
-      final String url =
-          '${environment['firebaseUrl']}/products/$productId.json?auth=$_token';
+      final uri = Uri.parse(
+        '${environment['firebaseUrl']}/products/$productId.json?auth=$_token',
+      );
 
-      var response = await http.delete(url);
+      var response = await http.delete(uri);
       if (response.statusCode >= 400) {
         throw HttpException(
           'Error ${response.statusCode}: ${response.reasonPhrase}',
-          uri: Uri.dataFromString(url),
+          uri: uri,
         );
       }
-
-      removedProduct = null;
     } catch (error) {
       // If an error occur on the server, restores the removed product
       _items.insert(removedProductIndex, removedProduct);

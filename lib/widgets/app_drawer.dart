@@ -8,7 +8,7 @@ import 'package:shop_app/providers/auth.dart';
 class AppDrawer extends StatelessWidget {
   final String selectedRouteName;
 
-  const AppDrawer({@required this.selectedRouteName});
+  const AppDrawer({required this.selectedRouteName});
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +66,10 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget _buildListTile({
-    @required BuildContext context,
-    @required IconData icon,
-    @required String routeName,
-    @required String title,
+    required BuildContext context,
+    required IconData icon,
+    required String routeName,
+    required String title,
   }) {
     return AbsorbPointer(
       absorbing: routeName == selectedRouteName,

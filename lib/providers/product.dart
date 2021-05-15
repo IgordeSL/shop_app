@@ -7,22 +7,22 @@ import 'package:flutter/widgets.dart';
 import 'package:shop_app/env.dart';
 
 class Product with ChangeNotifier {
-  final String id;
-  final String title;
-  final String description;
-  final double price;
-  final String imageURL;
+  final String? id;
+  final String? title;
+  final String? description;
+  final double? price;
+  final String? imageURL;
   bool _favorite;
 
   bool get favorite => this._favorite;
 
   Product({
-    @required this.id,
-    @required this.title,
-    @required this.description,
-    @required this.price,
-    @required this.imageURL,
-    favorite = false,
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.imageURL,
+    bool favorite = false,
   }) : this._favorite = favorite;
 
   Product.empty()
@@ -35,22 +35,23 @@ class Product with ChangeNotifier {
 
   toggleFavorite(
     bool value, {
-    @required String token,
-    @required String userId,
+    required String token,
+    required String userId,
   }) async {
     this._favorite = value;
     notifyListeners();
 
-    final String url =
-        '${environment['firebaseUrl']}/userFavorites/$userId/$id.json?auth=$token';
+    final uri = Uri.parse(
+      '${environment['firebaseUrl']}/userFavorites/$userId/$id.json?auth=$token',
+    );
 
     try {
-      var response = await http.put(url, body: json.encode(value));
+      var response = await http.put(uri, body: json.encode(value));
 
       if (response.statusCode >= 400)
         throw HttpException(
           'Error ${response.statusCode}: ${response.reasonPhrase}',
-          uri: Uri.dataFromString(url),
+          uri: uri,
         );
     } catch (error) {
       this._favorite = !value;
@@ -62,12 +63,12 @@ class Product with ChangeNotifier {
   }
 
   copyWith({
-    String id,
-    String title,
-    String description,
-    double price,
-    String imageURL,
-    bool favorite,
+    String? id,
+    String? title,
+    String? description,
+    double? price,
+    String? imageURL,
+    bool? favorite,
   }) =>
       Product(
         id: id ?? this.id,

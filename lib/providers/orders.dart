@@ -22,17 +22,20 @@ class Orders with ChangeNotifier {
   }
 
   Orders({
-    @required String token,
-    @required String userId,
-    List<OrderItem> orders,
+    required String token,
+    required String userId,
+    List<OrderItem>? orders,
   })  : _token = token,
         _userId = userId,
         _orders = orders ?? <OrderItem>[];
 
-  Future<void> addOrder(
-      {@required List<CartItem> items, double totalAmount}) async {
-    final String url =
-        '${environment['firebaseUrl']}/orders/$_userId.json?auth=$_token';
+  Future<void> addOrder({
+    required List<CartItem> items,
+    double totalAmount = 0,
+  }) async {
+    final uri = Uri.parse(
+      '${environment['firebaseUrl']}/orders/$_userId.json?auth=$_token',
+    );
 
     var order = OrderItem(
       id: null,
@@ -42,7 +45,7 @@ class Orders with ChangeNotifier {
 
     try {
       var response = await http.post(
-        url,
+        uri,
         body: json.encode(
           {
             'orderedAt': order.orderedAt.toIso8601String(),
@@ -72,13 +75,14 @@ class Orders with ChangeNotifier {
 
   Future<void> fetchOrders() async {
     try {
-      final url =
-          '${environment['firebaseUrl']}/orders/$_userId.json?auth=$_token';
-      final response = await http.get(url);
+      final uri = Uri.parse(
+        '${environment['firebaseUrl']}/orders/$_userId.json?auth=$_token',
+      );
+      final response = await http.get(uri);
       final data = json.decode(response.body) as Map<String, dynamic>;
       final newOrders = <OrderItem>[];
 
-      data?.forEach((key, value) {
+      data.forEach((key, value) {
         newOrders.insert(
           0,
           OrderItem(
@@ -113,7 +117,7 @@ class Orders with ChangeNotifier {
 }
 
 class OrderItem {
-  final String id;
+  final String? id;
   final List<CartItem> items;
   final DateTime orderedAt;
 
@@ -123,15 +127,15 @@ class OrderItem {
       );
 
   OrderItem({
-    @required this.id,
-    @required this.items,
-    @required this.orderedAt,
+    required this.id,
+    required this.items,
+    required this.orderedAt,
   });
 
   copyWith({
-    String id,
-    List<CartItem> items,
-    DateTime orderedAt,
+    String? id,
+    List<CartItem>? items,
+    DateTime? orderedAt,
   }) {
     return OrderItem(
       id: id ?? this.id,

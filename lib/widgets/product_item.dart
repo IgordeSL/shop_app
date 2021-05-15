@@ -60,12 +60,12 @@ class ProductItem extends StatelessWidget {
 
                     await product.toggleFavorite(
                       !product.favorite,
-                      token: auth.token,
-                      userId: auth.userId,
+                      token: auth.token!,
+                      userId: auth.userId!,
                     );
                   } catch (error) {
                     print('[Widget ProductItem] $error');
-                    Scaffold.of(context).showSnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
                           'An error happend when ${product.favorite ? 'un' : ''}favoriting product',
@@ -82,17 +82,17 @@ class ProductItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: GridTileBar(
               title: Text(
-                product.title,
+                product.title ?? '',
                 maxLines: 2,
               ),
-              subtitle: Text('\$ ${product.price.toStringAsFixed(2)}'),
+              subtitle: Text('\$ ${product.price?.toStringAsFixed(2) ?? 0}'),
               trailing: IconButton(
                 icon: Icon(Icons.add_shopping_cart_rounded),
                 tooltip: 'Add to cart',
                 onPressed: () {
                   cart.addCartItem(product);
 
-                  var scaffold = Scaffold.of(context);
+                  var scaffold = ScaffoldMessenger.of(context);
 
                   scaffold.removeCurrentSnackBar(
                     reason: SnackBarClosedReason.hide,
@@ -121,7 +121,7 @@ class ProductItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
-                  product.imageURL,
+                  product.imageURL ?? '',
                   fit: BoxFit.cover,
                   loadingBuilder: imageNetworkLoadingBuilder,
                   errorBuilder: (ctx, error, stackTrace) {

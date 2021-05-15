@@ -4,8 +4,8 @@ import 'package:shop_app/providers/cart.dart' as CartProvider;
 
 class CartItem extends StatelessWidget {
   const CartItem({
-    Key key,
-    @required this.cartItem,
+    Key? key,
+    required this.cartItem,
   }) : super(key: key);
 
   final CartProvider.CartItem cartItem;
@@ -34,11 +34,11 @@ class CartItem extends StatelessWidget {
           title: Text('Remove item from cart?'),
           content: Text('${cartItem.title} will be removed from your cart.'),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(ctx).pop(false),
               child: Text('Cancel'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.of(ctx).pop(true),
               child: Text('Remove'),
             )

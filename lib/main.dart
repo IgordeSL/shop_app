@@ -56,6 +56,7 @@ class App extends StatelessWidget {
       appBarTheme: const AppBarTheme(
         textTheme: TextTheme(
           headline6: TextStyle(
+            color: Colors.white,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.bold,
             fontSize: 18,
@@ -78,14 +79,28 @@ class App extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
       ),
-      buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(20),
         ),
-        height: 40,
-        padding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 16,
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(20),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(20),
         ),
       ),
       dividerTheme: DividerThemeData(
@@ -109,26 +124,51 @@ class App extends StatelessWidget {
           create: (context) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          create: null,
-          update: (context, auth, previous) => previous != null
-              ? (previous
-                ..token = auth.token
-                ..userId = auth.userId)
-              : Products(token: auth.token, userId: auth.userId),
+          create: (context) {
+            final auth = Provider.of<Auth>(
+              context,
+              listen: false,
+            );
+            return Products(
+              token: auth.token ?? '',
+              userId: auth.userId ?? '',
+            );
+          },
+          update: (context, auth, previous) {
+            return previous != null
+                ? (previous
+                  ..token = auth.token ?? ''
+                  ..userId = auth.userId ?? '')
+                : Products(
+                    token: auth.token ?? '',
+                    userId: auth.userId ?? '',
+                  );
+          },
         ),
         ChangeNotifierProvider(
           create: (context) => Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
-          create: null,
-          update: (context, auth, previous) => previous != null
-              ? (previous
-                ..token = auth.token
-                ..userId = auth.userId)
-              : Orders(
-                  token: auth.token,
-                  userId: auth.userId,
-                ),
+          create: (context) {
+            final auth = Provider.of<Auth>(
+              context,
+              listen: false,
+            );
+            return Orders(
+              token: auth.token ?? '',
+              userId: auth.userId ?? '',
+            );
+          },
+          update: (context, auth, previous) {
+            return previous != null
+                ? (previous
+                  ..token = auth.token ?? ''
+                  ..userId = auth.userId ?? '')
+                : Orders(
+                    token: auth.token ?? '',
+                    userId: auth.userId ?? '',
+                  );
+          },
         ),
       ],
       child: Consumer<Auth>(

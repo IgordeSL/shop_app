@@ -20,8 +20,6 @@ class _EditProductPageState extends State<EditProductPage>
   final _imageURLFocusNode = FocusNode();
   final _productFormGlobalKey = GlobalKey<FormState>();
 
-  final _scaffoldGlobalKey = GlobalKey<ScaffoldState>();
-
   bool _isInit = true;
   bool _isWaiting = false;
   bool _isEnabled = true;
@@ -39,7 +37,8 @@ class _EditProductPageState extends State<EditProductPage>
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final String productId = ModalRoute.of(context).settings.arguments;
+      final String? productId =
+          ModalRoute.of(context)?.settings.arguments.toString();
 
       if (productId != null) {
         _edittedProduct = Provider.of<Products>(
@@ -48,7 +47,7 @@ class _EditProductPageState extends State<EditProductPage>
         ).findById(productId);
       }
 
-      _imageURLController.text = _edittedProduct.imageURL;
+      _imageURLController.text = _edittedProduct.imageURL ?? '';
     }
 
     _isInit = false;
@@ -69,7 +68,6 @@ class _EditProductPageState extends State<EditProductPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldGlobalKey,
       appBar: AppBar(
         leading: CloseButton(),
         bottom: PreferredSize(
@@ -144,7 +142,7 @@ class _EditProductPageState extends State<EditProductPage>
                   },
                   onSaved: (newValue) {
                     _edittedProduct = _edittedProduct.copyWith(
-                      price: double.parse(newValue),
+                      price: double.parse(newValue ?? '0'),
                     );
                   },
                 ),
@@ -234,13 +232,13 @@ class _EditProductPageState extends State<EditProductPage>
           title: const Text('Discart changes?'),
           content: const Text('All unsaved data will be lost.'),
           actions: [
-            FlatButton(
+            TextButton(
               child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
             ),
-            FlatButton(
+            TextButton(
               child: const Text('Discart'),
               onPressed: () {
                 Navigator.of(context).pop(true);
@@ -249,6 +247,8 @@ class _EditProductPageState extends State<EditProductPage>
           ],
         );
       },
+    ).then(
+      (value) => value ?? false,
     );
   }
 
@@ -262,7 +262,7 @@ class _EditProductPageState extends State<EditProductPage>
     }
   }
 
-  String _validateTitle(value) {
+  String? _validateTitle(value) {
     if (value.isEmpty) {
       return 'Title must not be empty';
     } else {
@@ -270,7 +270,7 @@ class _EditProductPageState extends State<EditProductPage>
     }
   }
 
-  String _validatePrice(value) {
+  String? _validatePrice(value) {
     var price = double.tryParse(value);
     if (price == null) {
       return 'Price must not be empty';
@@ -281,7 +281,7 @@ class _EditProductPageState extends State<EditProductPage>
     }
   }
 
-  String _validateDescription(value) {
+  String? _validateDescription(value) {
     if (value.isEmpty) {
       return 'Description must not be empty';
     } else {
@@ -289,7 +289,7 @@ class _EditProductPageState extends State<EditProductPage>
     }
   }
 
-  String _validateImageURL(value) {
+  String? _validateImageURL(value) {
     if (value.isEmpty) {
       return 'Image URL must not be empty';
     } else if (!value.startsWith('http')) {
@@ -300,8 +300,10 @@ class _EditProductPageState extends State<EditProductPage>
   }
 
   Future<void> _saveProductForm() async {
-    if (_productFormGlobalKey.currentState.validate()) {
-      _productFormGlobalKey.currentState.save();
+    final productForm = _productFormGlobalKey.currentState;
+
+    if (productForm != null && productForm.validate()) {
+      productForm.save();
 
       Products productsProvider = Provider.of<Products>(context, listen: false);
 
@@ -321,7 +323,7 @@ class _EditProductPageState extends State<EditProductPage>
 
         Navigator.of(context).pop(true);
       } catch (error) {
-        _scaffoldGlobalKey.currentState.showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
               'An error occurred while saving your product.',

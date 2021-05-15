@@ -15,7 +15,7 @@ Widget imageNetworkLoadingBuilder(context, child, progress) {
     },
     duration: const Duration(milliseconds: 200),
     child: progress == null &&
-            ((child as Semantics)?.child as RawImage)?.image != null
+            ((child as Semantics).child as RawImage).image != null
         ? child
         : Container(
             height: 300,

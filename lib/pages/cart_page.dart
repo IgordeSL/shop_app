@@ -101,7 +101,7 @@ class CartPage extends StatelessWidget {
 
 class OrderButton extends StatefulWidget {
   const OrderButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -147,7 +147,7 @@ class _OrderButtonState extends State<OrderButton> {
                           _isLoading = false;
                         });
 
-                        Scaffold.of(context).showSnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content:
                                 Text('Your order was successefully placed'),
